@@ -17,12 +17,21 @@ for iter = 1:num_iters
     %       of the cost function (computeCost) and gradient here.
     %
 
+# what am i trying to optime?
+## the weights of my model
+
+# what is being updated?
+## the values of theta
 
 
+yPrediction = X * theta;
 
+errorInPredictions = yPrediction - y;
 
+# adjustments: 2 x 1 (there is one adjustment for each feature)
+adjustments = X' * errorInPredictions;
 
-
+theta = theta - alpha/m * adjustments;
     % ============================================================
 
     % Save the cost J in every iteration    

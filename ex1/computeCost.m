@@ -13,6 +13,17 @@ J = 0;
 % Instructions: Compute the cost of a particular choice of theta
 %               You should set J to the cost.
 
+# REMEMBER: this is the cost function, not its derivative, the weights adjustments
+
+# X: 97 x 2
+# theta: 2 x 1
+yPrediction = X * theta;
+
+# prediction: 97 x 1
+# y: 97 x 1
+J = sum((yPrediction - y).^2) / (2 * m);
+# the cost is the sum of all squared differences between the actual y and the predicted y, for each training example..
+# divided by the number of training examples * 2
 
 
 
