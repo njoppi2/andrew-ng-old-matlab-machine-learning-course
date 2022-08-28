@@ -29,7 +29,7 @@ yPredictions = sigmoid(X * theta);
 # costForYEq1: m * 1, if the y prediction is 1, cost should be 0, if it's 0, then it should be inf
 costForYEq1 = -log(yPredictions);
 
-# costForYEq0: m * 1, if the y prediction is 0, then the cost is 0, if it's 1, the it should be inf
+# costForYEq0: m * 1, if the y prediction is 0, then the cost is 0, if it's 1, then it should be inf
 costForYEq0 = -log(1 - yPredictions);
 
 J = (y' * costForYEq1 + (1 - y)' * costForYEq0) / m;

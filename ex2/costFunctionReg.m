@@ -19,6 +19,7 @@ grad = zeros(size(theta));
 
 [JNonRegularized, gradNonRegularized] = costFunction(theta, X, y);
 
+# thetaForRegularization is necessary because you should not regularize theta0 (it is for the bias node)
 thetaForRegularization = [0; theta(2:end)];
 
 J = JNonRegularized + lambda / (2 * m) * sum(thetaForRegularization.^2);
