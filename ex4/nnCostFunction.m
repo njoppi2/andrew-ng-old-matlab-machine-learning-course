@@ -30,6 +30,8 @@ J = 0;
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
 
+
+
 % ====================== YOUR CODE HERE ======================
 % Instructions: You should complete the code by working through the
 %               following parts.
@@ -39,6 +41,31 @@ Theta2_grad = zeros(size(Theta2));
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
 %
+% Add ones to the X data matrix
+
+a1 = [ones(m, 1) X];
+z2 = a1 * Theta1';
+a2 = sigmoid(z2);
+a2 = [ones(m, 1) a2];
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
+% ouput_layer: 5000 x 10
+output_layer = a3;
+
+% errorForYEqx: 5000 x 10
+errorForYEq1 = -log(output_layer);
+errorForYEq0 = -log(1 - output_layer);
+
+% y: 5000 x 1
+% yHotEncoded: 10 x 5000
+yHotEncoded = bsxfun(@eq, y, 1:num_labels)';
+
+% We had to use .* because both arrays were 5000 x 10, and what we wanted to do was calculate the cost for..
+% each output node of each training example, therefore a individual multiplication
+costForEachOutputNode = (yHotEncoded' .* errorForYEq1 + (1 - yHotEncoded)' .* errorForYEq0) / m;
+J = sum(sum(costForEachOutputNode));
+
+
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
 %         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
@@ -54,6 +81,27 @@ Theta2_grad = zeros(size(Theta2));
 %               over the training examples if you are implementing it for the 
 %               first time.
 %
+
+
+
+% we first calculate the error in the output layer, and use it to calculate Theta2
+% then with Theta2 we can calculate Theta1
+
+% the layer error (deltaN) is the predicted activation of that layer minus the actual correct value
+% delta3: 5000 x 10
+delta3 = a3 - yHotEncoded';
+% Theta1: 25 x 401
+% Theta2: 10 x 26
+delta2 = (delta3 * Theta2 .* sigmoidGradient([ones(size(z2, 1), 1) z2]))(:, 2:end); 
+% delta2: 5000 x 26
+% a1: 5000 x 401
+Delta1 = delta2' * a1;
+% delta3: 5000 x 10
+% a2: 5000 x 26
+Delta2 = delta3' * a2;
+  
+  
+
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
@@ -62,22 +110,22 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% Add intercept term to x and X_test
 
+% regularization for cost function
+Theta1Regularization = sum(sum(Theta1(:, 2:end) .^ 2));
+Theta2Regularization = sum(sum(Theta2(:, 2:end) .^ 2));
 
+costRegularization = lambda / (2 * m) * (Theta1Regularization + Theta2Regularization);
+J = J + costRegularization;
 
+% regularization for gradients
 
+Theta1WithoutBiasWeight = [zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];
+Theta2WithoutBiasWeight = [zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];
 
-
-
-
-
-
-
-
-
-
-
-
+Theta1_grad = (Delta1 +  lambda * Theta1WithoutBiasWeight) / m;
+Theta2_grad = (Delta2 +  lambda * Theta2WithoutBiasWeight) / m;
 
 
 % -------------------------------------------------------------

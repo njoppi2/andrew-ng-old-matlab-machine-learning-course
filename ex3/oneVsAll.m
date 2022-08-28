@@ -59,9 +59,6 @@ for c = 1:num_labels
   % Set options for fminunc
   options = optimset('GradObj', 'on', 'MaxIter', 50);
 
-  
-  % one hot encoding y
-  %y = bsxfun(@eq, X(:), 1:max(X));
 
   % Run fmincg to obtain the optimal theta
   % This function will return theta and the cost 
