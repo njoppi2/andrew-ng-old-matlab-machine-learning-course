@@ -17,7 +17,13 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 
+[JNonRegularized, gradNonRegularized] = costFunction(theta, X, y);
 
+thetaForRegularization = [0; theta(2:end)];
+
+J = JNonRegularized + lambda / (2 * m) * sum(thetaForRegularization.^2);
+
+grad = gradNonRegularized + lambda / m * thetaForRegularization;
 
 
 

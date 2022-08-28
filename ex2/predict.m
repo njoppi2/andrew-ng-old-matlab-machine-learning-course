@@ -16,8 +16,9 @@ p = zeros(m, 1);
 %
 
 
+yPrediction = round(sigmoid(X * theta));
 
-
+p = yPrediction;
 
 
 
