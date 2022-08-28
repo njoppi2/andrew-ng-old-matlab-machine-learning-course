@@ -19,6 +19,18 @@ grad = zeros(size(theta));
 %               You should set J to the cost and grad to the gradient.
 %
 
+%cost
+predictedY = X * theta;
+error = predictedY - y;
+meanSquaredError = (error).^2;
+costRegularization = lambda * [0; theta(2:end)].^2; # watch out for the [0; theta(2:end)]
+cost = (sum(meanSquaredError) + sum(costRegularization)) / (2 * m);
+J = cost;
+
+%gradient
+thetaWithoutBiasWeight = [0; theta(2:end)]; # watch out for the [0; theta(2:end)]
+gradRegularization = lambda * thetaWithoutBiasWeight;
+grad = (X' * error + gradRegularization) / m;
 
 
 % =========================================================================
