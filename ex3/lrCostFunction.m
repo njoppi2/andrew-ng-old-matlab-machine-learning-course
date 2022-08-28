@@ -36,6 +36,10 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+% X : m * f
+% theta | grad : f * 1
+% yPrediction | y | lambda : m * 1
+% J : scalar
 
 yPrediction = sigmoid(X * theta);
 
