@@ -30,8 +30,19 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
+% num_labels = 10
+% n + 1 = nº features + 1 = 401
 
+% p : m * 1
+% all_theta : num_labels * n + 1
+% X : m * n + 1
 
+% all_classifiers_for_each_m : m * num_labels
+allClassifiersForEachExample = sigmoid(X * all_theta');
+[max_column_values,indices] = max(allClassifiersForEachExample,[],2); # pay attention, its a 2, not 1
+
+% we need mod to turn the 10's into 0's
+p = mod(indices, 10);
 
 
 

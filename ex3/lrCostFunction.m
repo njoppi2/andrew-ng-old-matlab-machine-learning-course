@@ -37,12 +37,18 @@ grad = zeros(size(theta));
 %
 
 
+yPrediction = sigmoid(X * theta);
 
+# y = 0, so if the prediction is y = 1, the cost is infinite
+costForYEq1 = -log(yPrediction);
+# y = 1, so if the prediction is y = 0, the cost is infinite
+costForYEq0 = -log(1 - yPrediction);
 
+thetaForRegularization = [0; theta(2:end)];
 
+J = ((y' * costForYEq1 + (1 - y)' * costForYEq0) + lambda * sum(thetaForRegularization.^2) / 2) / m;
 
-
-
+grad = (X' * (yPrediction - y) + lambda * thetaForRegularization) / m;
 
 
 % =============================================================
