@@ -21,10 +21,22 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-
-
-
-
+for i = 1:rows(X)
+  x_i = X(i,:);
+  for j = 1:K
+    if idx(i) == 0
+      idx(i) = j;
+      continue;
+    endif
+    centroid_j = centroids(j, :);
+    best_found_centroid_x_i = centroids(idx(i), :);
+    current_distance = sqrt(sum((x_i - centroid_j).^2));
+    minimum_distance = sqrt(sum((x_i - best_found_centroid_x_i).^2));
+    if minimum_distance > current_distance
+      idx(i) = j;
+    endif
+  endfor
+endfor
 
 
 % =============================================================
