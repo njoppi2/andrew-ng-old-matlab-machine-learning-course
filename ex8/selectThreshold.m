@@ -24,16 +24,16 @@ for epsilon = min(pval):stepsize:max(pval)
     %       of 0's and 1's of the outlier predictions
 
 
+is_anomalous = pval < epsilon;
+true_positive = sum(is_anomalous & yval);
+true_negative = sum((is_anomalous == 0) & (yval == 0));
+false_positive = sum(is_anomalous & (yval == 0));
+false_negative = sum((is_anomalous == 0) & yval);
 
+precision = true_positive / (true_positive + false_positive);
+recall = true_positive / (true_positive + false_negative);
 
-
-
-
-
-
-
-
-
+F1 = 2 * precision * recall / (precision + recall);
 
     % =============================================================
 
