@@ -1,5 +1,5 @@
 # andrew-ng-old-matlab-machine-learning-course
-![mlc](https://user-images.githubusercontent.com/16853682/188282703-893c78da-e1ca-4542-bb43-b107e2103e47.png)
+![jj](https://github.com/njoppi2/andrew-ng-old-matlab-machine-learning-course/assets/16853682/86d27479-62cf-4c46-a3a6-7c13c895d0dd)
 
 Here are all the programming exercises from the Standford professor Andrew Ng's machine learning course.
 
